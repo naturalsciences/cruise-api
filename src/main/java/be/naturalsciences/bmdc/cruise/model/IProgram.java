@@ -8,12 +8,18 @@ package be.naturalsciences.bmdc.cruise.model;
 import java.util.Collection;
 
 /**
- * An interface that contains the core EARS elements for a Program, enriched with entities and fields needed for the CSR.
+ * An interface that contains the core EARS elements for a Program, enriched
+ * with entities and fields needed for the CSR.
+ *
  * @author thomas
  */
-public interface IProgram {
+public interface IProgram extends IEarsEntity{
 
     Collection<? extends ICruise> getCruises();
+    
+    String getSampling();
+
+    String getName();
 
     String getDescription();
 
@@ -27,6 +33,10 @@ public interface IProgram {
 
     void setCruises(Collection<? extends ICruise> cruises);
 
+    void setSampling(String sampling);
+
+    void setName(String name);
+
     void setDescription(String description);
 
     void setId(Long id);
@@ -36,5 +46,5 @@ public interface IProgram {
     void setPrincipalInvestigators(Collection<? extends IPerson> principalInvestigators);
 
     void setProjects(Collection<? extends IProject> projects);
-    
+
 }

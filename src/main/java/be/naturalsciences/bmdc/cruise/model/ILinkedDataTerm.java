@@ -45,15 +45,19 @@ public interface ILinkedDataTerm extends IConcept {
     public static String getUrnFromUrl(String url) {
         if (url == null) {
             return null;
+            // http://ontologies.ef-ears.eu/ears2/1/#11BE_dev_35255390-37ad-11ea-92f9-d6fb90a43b87
         } else if (URL_PATTERN.matcher(url).matches()) {
-            Pattern earsIdentifierPattern = Pattern.compile("http://ontologies.ef-ears.eu/ears2/1#(.+?)_(\\d+)");
-            Pattern nercIdentifierPattern = Pattern.compile("http://vocab.nerc.ac.uk/collection/(.+?)/current/(.+)");
+//http://ontologies.ef-ears.eu/ears2/1/#dev_ff470414-4958-495a-ace9-ff6d6590a4f3
+            Pattern earsClassicIdentifierPattern = Pattern.compile("https?:\\/\\/ontologies.ef-ears.eu\\/ears2\\/1\\/?#(.+?)_([a-z0-9\\-]+)");
+            Pattern earsBoatIdentifierPattern = Pattern.compile("https?:\\/\\/ontologies.ef-ears.eu\\/ears2\\/1\\/?#(.+?)_(.+?)_([a-z0-9\\-]+)");
+            Pattern wrongEars3PartIdentifierPattern = Pattern.compile("https?:\\/\\/ontologies.ef-ears.eu\\/ears2\\/1\\/11BE#(.+?)_([a-z0-9\\-]+)");
+            Pattern nercIdentifierPattern = Pattern.compile("https?:\\/\\/vocab.nerc.ac.uk\\/collection\\/(.+?)\\/current\\/(.+)");
+            Pattern sdnUrnToUrlIdentifierPattern = Pattern.compile("https?:\\/\\/www.seadatanet.org\\/urnurl\\/(.*)");
 
-            Matcher matcher = earsIdentifierPattern.matcher(url);
+            Matcher matcher = sdnUrnToUrlIdentifierPattern.matcher(url);
             if (matcher.find()) {
-                String type = matcher.group(1);
-                String number = matcher.group(2).replace("/", "");
-                return "ears:" + type + "::" + number;
+                String urn = matcher.group(1).replace("/", "");
+                return urn;
             }
             matcher = nercIdentifierPattern.matcher(url);
             if (matcher.find()) {
@@ -61,8 +65,36 @@ public interface ILinkedDataTerm extends IConcept {
                 String number = matcher.group(2).replace("/", "");
                 return "SDN:" + type + "::" + number;
             }
+            matcher = earsBoatIdentifierPattern.matcher(url);
+            if (matcher.find()) {
+                String boat = matcher.group(1);
+                String type = matcher.group(2);
+                String identifier = matcher.group(3).replace("/", "");
+                return "ears:" + type + ":" + boat + "::" + identifier;
+            }
+            matcher = earsClassicIdentifierPattern.matcher(url);
+            if (matcher.find()) {
+                String type = matcher.group(1);
+                String identifier = matcher.group(2).replace("/", "");
+                return "ears:" + type + "::" + identifier;
+            }
+            matcher = wrongEars3PartIdentifierPattern.matcher(url);
+            if (matcher.find()) {
+                String boat = "11BE";
+                String type = matcher.group(1);
+                String identifier = matcher.group(2).replace("/", "");
+                return "ears:" + type + ":" + boat + "::" + identifier;
+            }
         }
         return null;
+    }
+
+    public static boolean identifierMatches(ILinkedDataTerm me, String identifier) {
+        return me.getIdentifier().equals(identifier) || me.getUrn().equals(identifier) || me.getTransitiveIdentifier().equals(identifier) || me.getTransitiveUrn().equals(identifier);
+    }
+
+    public static boolean identifierOrNameMatches(ILinkedDataTerm me, String identifier) {
+        return identifier.equals(me.getName()) || identifier.equals(me.getIdentifier()) || identifier.equals(me.getUrn()) || identifier.equals(me.getTransitiveIdentifier()) || identifier.equals(me.getTransitiveUrn());
     }
 
     /**

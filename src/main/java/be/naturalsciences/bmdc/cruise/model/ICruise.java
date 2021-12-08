@@ -19,7 +19,7 @@ import java.util.Set;
  *
  * @author thomas
  */
-public interface ICruise {
+public interface ICruise extends IEarsEntity{
 
     public IHarbour getArrivalHarbour();
 
@@ -31,8 +31,6 @@ public interface ICruise {
 
     public OffsetDateTime getEndDate();
 
-    public int getId();
-
     public String getIdentifier();
 
     public String getName();
@@ -40,6 +38,10 @@ public interface ICruise {
     public boolean getIsCancelled();
 
     public String getObjectives();
+    
+    public String getPurpose();
+
+    public Collection<? extends ICoordinate> getTrack();
 
     public Collection<? extends ILinkedDataTerm> getP02();
 
@@ -71,8 +73,6 @@ public interface ICruise {
 
     void setEndDate(OffsetDateTime endDate);
 
-    void setId(int id);
-
     void setIdentifier(String identifier);
 
     void setName(String name);
@@ -80,6 +80,10 @@ public interface ICruise {
     void setIsCancelled(boolean isCancelled);
 
     void setObjectives(String objectives);
+    
+    void setPurpose(String purpose);
+
+    public void setTrack(Collection<? extends ICoordinate> coordinates);
 
     void setP02(Collection<? extends ILinkedDataTerm> P02);
 
@@ -92,5 +96,41 @@ public interface ICruise {
     void setStartDate(OffsetDateTime startDate);
 
     public void setEvents(Collection<? extends IEvent> events);
+
+    public String getFinalReportUrl();
+
+    public void setFinalReportUrl(String finalReportUrl);
+
+    public String getPlanningUrl();
+
+    public void setPlanningUrl(String planningUrl);
+
+    public String getTrackImageUrl();
+
+    public void setTrackImageUrl(String trackImageUrl);
+
+    public String getTrackGmlUrl();
+
+    public void setTrackGmlUrl(String trackGmlUrl);
+
+    public String getDataUrl();
+
+    public void setDataUrl(String dataUrl);
+
+    public void setSouthBoundLatitude(double y);
+
+    public void setNorthBoundLatitude(double y);
+
+    public void setWestBoundLongitude(double x);
+
+    public void setEastBoundLongitude(double x);
+
+    public double getWestBoundLongitude();
+
+    public double getEastBoundLongitude();
+
+    public double getNorthBoundLatitude();
+
+    public double getSouthBoundLatitude();
 
 }

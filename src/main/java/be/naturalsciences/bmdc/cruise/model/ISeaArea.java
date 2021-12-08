@@ -11,4 +11,20 @@ package be.naturalsciences.bmdc.cruise.model;
  */
 public interface ISeaArea extends IConcept {
     
+    
+    public Double getSouthBoundLatitude();
+
+    public void setSouthBoundLatitude(Double southBoundLatitude);
+
+    public Double getNorthBoundLatitude();
+
+    public void setNorthBoundLatitude(Double northBoundLatitude);
+
+    public Double getWestBoundLongitude();
+
+    public void setWestBoundLongitude(Double westBoundLongitude);
+
+    public Double getEastBoundLongitude();
+
+    public void setEastBoundLongitude(Double eastBoundLongitude);
 }

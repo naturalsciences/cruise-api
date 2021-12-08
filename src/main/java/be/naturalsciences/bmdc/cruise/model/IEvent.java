@@ -9,11 +9,13 @@ import java.time.OffsetDateTime;
 import java.util.Collection;
 
 /**
- * An interface that contains the core EARS elements for an , enriched with entities and fields needed for the CSR.  
+ * An interface that contains the core EARS elements for an , enriched with
+ * entities and fields needed for the CSR.
+ *
  * @author thomas
  */
-public interface IEvent {
-    
+public interface IEvent extends IEarsEntity {
+
     public IProgram getProgram();
 
     public ILinkedDataTerm getAction();
@@ -35,9 +37,11 @@ public interface IEvent {
     public ITool getTool();
 
     public ILinkedDataTerm getToolCategory();
-    
+
+    public IPlatform getPlatform();
+
     public String toString();
-    
+
     void setProgram(IProgram program);
 
     void setAction(ILinkedDataTerm action);
@@ -59,5 +63,7 @@ public interface IEvent {
     void setTool(ITool tool);
 
     void setToolCategory(ILinkedDataTerm toolCategory);
-    
+
+    void setPlatform(IPlatform platform);
+
 }

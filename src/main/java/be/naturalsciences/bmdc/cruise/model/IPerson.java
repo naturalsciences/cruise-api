@@ -33,12 +33,14 @@ public interface IPerson {
 
     void setFaxNumber(String faxNumber);
 
-    String _getEmailAddress();
+    String getEmail();
 
-    void _setEmailAddress(String email);
+    void setEmail(String email);
 
     int hashCode();
 
     boolean equals(Object obj);
+
+    public String getFirstNameLastName();
 
 }
