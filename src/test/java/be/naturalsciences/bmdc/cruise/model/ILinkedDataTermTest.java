@@ -43,7 +43,7 @@ public class ILinkedDataTermTest {
     }
 
     /**
-     * Test of getIdentifierFromNERCorSDNUrl method, of class ILinkedDataTerm.
+     * Test of getIdentifierFromNERCorSDNUrlOrUrn method, of class ILinkedDataTerm.
      */
     @Test
     @Ignore
@@ -51,7 +51,7 @@ public class ILinkedDataTermTest {
         System.out.println("getIdentifierFromNERCorSDNUrl");
         String identifier = "";
         String expResult = "";
-        String result = ILinkedDataTerm.getIdentifierFromNERCorSDNUrl(identifier);
+        String result = ILinkedDataTerm.getIdentifierFromNERCorSDNUrlOrUrn(identifier);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

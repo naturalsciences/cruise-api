@@ -24,7 +24,7 @@ public interface ILinkedDataTerm extends IConcept {
             "(https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]{2,}|www\\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]{2,}|https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9]+\\.[^\\s]{2,}|www\\.[a-zA-Z0-9]+\\.[^\\s]{2,})",
             Pattern.CASE_INSENSITIVE);
 
-    public static String getIdentifierFromNERCorSDNUrl(String identifier) {
+    public static String getIdentifierFromNERCorSDNUrlOrUrn(String identifier) {
         if (identifier == null) {
             return null;
         } else if (URN_PATTERN.matcher(identifier).matches()) {
@@ -32,7 +32,7 @@ public interface ILinkedDataTerm extends IConcept {
             return split[split.length - 1];//return the last part of an urn
         } else if (URL_PATTERN.matcher(identifier).matches()) {
             String[] split = identifier.split("/");
-            return split[split.length - 1];//return the last part of an urn
+            return split[split.length - 1];//return the last part of an url
         } else {
             return identifier;
         }
@@ -40,6 +40,22 @@ public interface ILinkedDataTerm extends IConcept {
 
     public static String cleanUrl(String url) {
         return url.replaceAll("/$", "");
+    }
+
+    /**
+     * *
+     * Get the BODC URN from a term. Look both at the identifier and the
+     * transitive identifier
+     *
+     * @return
+     */
+    public static String getBodcUrnFromTerm(ILinkedDataTerm term) {
+        String urnFromUrl = getUrnFromUrl(term.getIdentifier());
+        if (urnFromUrl.contains("SDN")) {
+            return urnFromUrl;
+        } else {
+            return getUrnFromUrl(term.getTransitiveIdentifier());
+        }
     }
 
     public static String getUrnFromUrl(String url) {

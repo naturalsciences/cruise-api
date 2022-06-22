@@ -40,6 +40,7 @@ public interface IEvent extends IEarsEntity {
 
     public IPlatform getPlatform();
 
+    @Override
     public String toString();
 
     void setProgram(IProgram program);
@@ -65,5 +66,17 @@ public interface IEvent extends IEarsEntity {
     void setToolCategory(ILinkedDataTerm toolCategory);
 
     void setPlatform(IPlatform platform);
+
+    String getLabel();
+
+    void setLabel(String label);
+
+    String getDescription();
+
+    void setDescription(String description);
+
+    String getStation();
+
+    void setStation(String description);
 
 }
