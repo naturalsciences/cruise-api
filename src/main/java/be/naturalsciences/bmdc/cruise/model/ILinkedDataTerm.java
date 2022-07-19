@@ -58,6 +58,14 @@ public interface ILinkedDataTerm extends IConcept {
         }
     }
 
+    /**
+     * *
+     * Given an url, try to extract the essential part and show it as an urn. If
+     * all else fails, return null.
+     *
+     * @param identifier
+     * @return
+     */
     public static String getUrnFromUrl(String url) {
         if (url == null) {
             return null;
